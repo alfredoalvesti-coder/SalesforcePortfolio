@@ -1,0 +1,43 @@
+:host {
+    display: block;
+}
+
+.hero {
+    max-width: 54rem;
+}
+
+.eyebrow {
+    margin: 0 0 1rem;
+    color: var(--portfolio-blue, #58a6ff);
+    font-size: 0.8125rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+    color: var(--portfolio-text, #edf4ff);
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 750;
+    letter-spacing: -0.055em;
+    line-height: 1.04;
+    overflow-wrap: anywhere;
+}
+
+.summary {
+    max-width: 42rem;
+    margin: 1.5rem 0 0;
+    color: var(--portfolio-muted, #a9b9ce);
+    font-size: clamp(1.0625rem, 2.5vw, 1.25rem);
+    line-height: 1.75;
+}
+
+.accent-line {
+    display: block;
+    width: 4rem;
+    height: 0.25rem;
+    margin-top: 2rem;
+    border-radius: 999px;
+    background: var(--portfolio-blue, #58a6ff);
+}

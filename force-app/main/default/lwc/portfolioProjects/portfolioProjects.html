@@ -1,0 +1,49 @@
+<template>
+    <section class="content-section" aria-labelledby="projects-title">
+        <p class="eyebrow">Trabalho selecionado</p>
+        <h2 id="projects-title">Projetos</h2>
+        <template lwc:if={hasProjects}>
+            <div class="project-grid">
+                <template for:each={projects} for:item="project">
+                    <article class="project-card" key={project.id}>
+                        <h3>{project.name}</h3>
+                        <p class="description">{project.description}</p>
+                        <ul class="technology-list" aria-label="Tecnologias">
+                            <template
+                                for:each={project.technologies}
+                                for:item="technology"
+                            >
+                                <li key={technology}>{technology}</li>
+                            </template>
+                        </ul>
+                        <div class="project-links">
+                            <template lwc:if={project.repositoryUrl}>
+                                <a
+                                    href={project.repositoryUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Código-fonte
+                                </a>
+                            </template>
+                            <template lwc:if={project.demoUrl}>
+                                <a
+                                    href={project.demoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Demonstração
+                                </a>
+                            </template>
+                        </div>
+                    </article>
+                </template>
+            </div>
+        </template>
+        <template lwc:else>
+            <p class="empty-state">
+                Adicione projetos que você possa compartilhar publicamente.
+            </p>
+        </template>
+    </section>
+</template>

@@ -1,0 +1,41 @@
+:host {
+    display: block;
+}
+
+.site-header {
+    border-bottom: 1px solid var(--portfolio-border, rgb(169 185 206 / 18%));
+    background: rgb(8 17 31 / 72%);
+}
+
+.header-inner {
+    box-sizing: border-box;
+    display: flex;
+    width: min(100%, 76rem);
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 auto;
+    padding: 1.125rem clamp(1.25rem, 5vw, 3rem);
+}
+
+.brand-mark {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgb(88 166 255 / 45%);
+    border-radius: 0.625rem;
+    color: var(--portfolio-blue, #58a6ff);
+    background: rgb(88 166 255 / 10%);
+    font-size: 0.875rem;
+    font-weight: 800;
+}
+
+.brand-label {
+    overflow: hidden;
+    color: var(--portfolio-text, #edf4ff);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

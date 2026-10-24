@@ -1,0 +1,53 @@
+<template>
+    <div class="portfolio-shell">
+        <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+        <c-portfolio-header brand-label={displayPageTitle}></c-portfolio-header>
+        <main id="main-content" class="main-content" tabindex="-1">
+            <c-portfolio-hero
+                heading={displayPageTitle}
+                summary={displayIntroduction}
+            ></c-portfolio-hero>
+            <nav class="section-nav" aria-label="Navegação das seções">
+                <a href="#experience">Experiência</a>
+                <a href="#skills">Habilidades</a>
+                <a href="#projects">Projetos</a>
+                <a href="#contact">Contato</a>
+            </nav>
+            <section
+                id="experience"
+                class="portfolio-section"
+                aria-label="Experiência profissional"
+            >
+                <c-portfolio-experience
+                    items={experienceItems}
+                ></c-portfolio-experience>
+            </section>
+            <section
+                id="skills"
+                class="portfolio-section"
+                aria-label="Habilidades"
+            >
+                <c-portfolio-skills skills={skills}></c-portfolio-skills>
+            </section>
+            <section
+                id="projects"
+                class="portfolio-section"
+                aria-label="Projetos"
+            >
+                <c-portfolio-projects projects={projects}></c-portfolio-projects>
+            </section>
+            <section
+                id="contact"
+                class="portfolio-section"
+                aria-label="Contato"
+            >
+                <c-portfolio-contact
+                    email={contactEmail}
+                    linkedin-url={linkedinUrl}
+                    github-url={githubUrl}
+                ></c-portfolio-contact>
+            </section>
+        </main>
+        <c-portfolio-footer></c-portfolio-footer>
+    </div>
+</template>

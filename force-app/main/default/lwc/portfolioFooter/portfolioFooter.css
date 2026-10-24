@@ -1,0 +1,20 @@
+:host {
+    display: block;
+}
+
+.site-footer {
+    border-top: 1px solid var(--portfolio-border, rgb(169 185 206 / 18%));
+}
+
+.footer-inner {
+    box-sizing: border-box;
+    width: min(100%, 76rem);
+    margin: 0 auto;
+    padding: 1.25rem clamp(1.25rem, 5vw, 3rem);
+}
+
+p {
+    margin: 0;
+    color: var(--portfolio-muted, #a9b9ce);
+    font-size: 0.875rem;
+}

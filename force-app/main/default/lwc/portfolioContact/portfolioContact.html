@@ -1,0 +1,41 @@
+<template>
+    <section class="content-section" aria-labelledby="contact-title">
+        <p class="eyebrow">Vamos conversar</p>
+        <h2 id="contact-title">Contato</h2>
+        <p class="description">
+            Entre em contato pelos canais profissionais abaixo.
+        </p>
+        <div class="contact-links">
+            <template lwc:if={emailHref}>
+                <a href={emailHref}>E-mail</a>
+            </template>
+            <template lwc:if={linkedinHref}>
+                <a
+                    href={linkedinHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    LinkedIn
+                </a>
+            </template>
+            <template lwc:if={githubHref}>
+                <a
+                    href={githubHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
+            </template>
+        </div>
+        <template lwc:if={hasContactLink}>
+            <span class="assistive-text">Canais de contato configurados.</span>
+        </template>
+        <template lwc:else>
+            <p class="empty-state">
+                Configure seus canais de contato nas propriedades do Experience
+                Builder.
+            </p>
+        </template>
+    </section>
+</template>

@@ -1,0 +1,86 @@
+:host {
+    display: block;
+}
+
+.content-section {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+.eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--portfolio-blue, #58a6ff);
+    font-size: 0.8125rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+h2 {
+    margin: 0;
+    color: var(--portfolio-text, #edf4ff);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+}
+
+.experience-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.experience-card {
+    min-width: 0;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--portfolio-border, rgb(169 185 206 / 18%));
+    border-radius: 1rem;
+    background: var(--portfolio-surface, #0e1b2b);
+}
+
+.card-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+}
+
+h3 {
+    margin: 0;
+    color: var(--portfolio-text, #edf4ff);
+    font-size: 1.125rem;
+}
+
+.period,
+.organization,
+.description,
+.empty-state {
+    color: var(--portfolio-muted, #a9b9ce);
+    line-height: 1.7;
+}
+
+.period {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.organization {
+    margin: 0.5rem 0 0;
+    color: var(--portfolio-blue, #58a6ff);
+    font-weight: 650;
+}
+
+.description {
+    margin: 0.75rem 0 0;
+}
+
+.empty-state {
+    margin: 1.25rem 0 0;
+}
+
+@media (max-width: 40rem) {
+    .card-heading {
+        display: grid;
+    }
+}

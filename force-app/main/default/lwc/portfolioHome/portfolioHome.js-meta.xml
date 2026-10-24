@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Portfolio Home</masterLabel>
+    <description>
+        Página inicial do portfólio, configurável pelo Experience Builder.
+    </description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="pageTitle"
+                type="String"
+                label="Título principal"
+                default="Portfólio Salesforce"
+            />
+            <property
+                name="introduction"
+                type="String"
+                label="Resumo de apresentação"
+                default="Experiência, habilidades e projetos em Salesforce."
+            />
+            <property
+                name="contactEmail"
+                type="String"
+                label="E-mail de contato"
+            />
+            <property
+                name="linkedinUrl"
+                type="String"
+                label="URL do LinkedIn"
+            />
+            <property
+                name="githubUrl"
+                type="String"
+                label="URL do GitHub"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

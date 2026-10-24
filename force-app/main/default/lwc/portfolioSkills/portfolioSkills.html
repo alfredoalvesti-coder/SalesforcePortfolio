@@ -1,0 +1,18 @@
+<template>
+    <section class="content-section" aria-labelledby="skills-title">
+        <p class="eyebrow">Conhecimentos</p>
+        <h2 id="skills-title">Habilidades</h2>
+        <template lwc:if={hasSkills}>
+            <ul class="skill-list">
+                <template for:each={skills} for:item="skill">
+                    <li class="skill-item" key={skill}>{skill}</li>
+                </template>
+            </ul>
+        </template>
+        <template lwc:else>
+            <p class="empty-state">
+                Inclua habilidades que você possa demonstrar na prática.
+            </p>
+        </template>
+    </section>
+</template>

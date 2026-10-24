@@ -1,0 +1,25 @@
+<template>
+    <section class="content-section" aria-labelledby="experience-title">
+        <p class="eyebrow">Trajetória</p>
+        <h2 id="experience-title">Experiência profissional</h2>
+        <template lwc:if={hasItems}>
+            <div class="experience-list">
+                <template for:each={items} for:item="item">
+                    <article class="experience-card" key={item.id}>
+                        <div class="card-heading">
+                            <h3>{item.role}</h3>
+                            <p class="period">{item.period}</p>
+                        </div>
+                        <p class="organization">{item.organization}</p>
+                        <p class="description">{item.description}</p>
+                    </article>
+                </template>
+            </div>
+        </template>
+        <template lwc:else>
+            <p class="empty-state">
+                Adicione experiências profissionais reais ao modelo de conteúdo.
+            </p>
+        </template>
+    </section>
+</template>

@@ -49,4 +49,43 @@ describe('c-portfolio-contact', () => {
         });
         expect(element.shadowRoot.querySelector('.empty-state')).toBeNull();
     });
+
+    it.each([
+        ['missing hostname', 'https://'],
+        ['inner space', 'https://exa mple.com/perfil'],
+        ['missing slashes', 'https:example.com/perfil'],
+        ['javascript scheme', ['javascript', 'alert(1)'].join(':')],
+        ['hostname without dot', 'https://localhost/perfil'],
+        ['credentials before host', 'https://example.com@other.example.org'],
+        ['leading hyphen in domain', 'https://-example.com/perfil'],
+        ['IPv4 address', 'https://192.168.0.1/perfil']
+    ])('does not render malformed HTTPS links (%s)', (_label, url) => {
+        const element = createElement('c-portfolio-contact', {
+            is: PortfolioContact
+        });
+        element.linkedinUrl = url;
+        element.githubUrl = url;
+
+        document.body.appendChild(element);
+
+        expect(
+            element.shadowRoot.querySelectorAll('.contact-links a')
+        ).toHaveLength(0);
+        expect(element.shadowRoot.querySelector('.empty-state')).not.toBeNull();
+    });
+
+    it('ignores non-string contact values', () => {
+        const element = createElement('c-portfolio-contact', {
+            is: PortfolioContact
+        });
+        element.email = 42;
+        element.linkedinUrl = { href: 'https://example.com' };
+        element.githubUrl = null;
+
+        document.body.appendChild(element);
+
+        expect(
+            element.shadowRoot.querySelectorAll('.contact-links a')
+        ).toHaveLength(0);
+    });
 });

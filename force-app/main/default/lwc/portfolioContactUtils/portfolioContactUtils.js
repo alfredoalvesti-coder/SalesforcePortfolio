@@ -1,13 +1,9 @@
+import { getHttpsUrl } from "c/portfolioValidationUtils";
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const HTTPS_URL_PATTERN = /^https:\/\/[^\s]+$/i;
 
 function normalize(value) {
   return typeof value === "string" ? value.trim() : "";
-}
-
-function getHttpsUrl(value) {
-  const url = normalize(value);
-  return HTTPS_URL_PATTERN.test(url) ? url : "";
 }
 
 export function getContactLinks(email, linkedinUrl, githubUrl) {

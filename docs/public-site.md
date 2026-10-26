@@ -62,7 +62,7 @@ anônimos.
      "introduction": "Salesforce, Java, Spring Boot, integrações e arquitetura de software.",
      "aboutText": "Desenvolvedor Salesforce Sênior com conhecimentos em Java, Spring Boot, integrações e arquitetura de software.",
      "experienceItemsJson": "[]",
-     "skillGroupsJson": "[{\"id\":\"backend\",\"category\":\"Desenvolvimento back-end\",\"skills\":[\"Java\",\"Spring Boot\"]}]",
+     "skillGroupsJson": "[{\"id\":\"salesforce\",\"category\":\"Salesforce\",\"skills\":[\"Salesforce DX\",\"Lightning Web Components (LWC)\",\"Experience Cloud\"]},{\"id\":\"backend\",\"category\":\"Desenvolvimento back-end\",\"skills\":[\"Java\",\"Spring Boot\"]},{\"id\":\"integration-architecture\",\"category\":\"Integrações e arquitetura\",\"skills\":[\"Integrações\",\"Arquitetura de software\"]}]",
      "projectsJson": "[]",
      "contactEmail": "",
      "linkedinUrl": "",
@@ -72,6 +72,10 @@ anônimos.
 
    A página oculta experiência, projetos e contato enquanto não houver dados
    válidos, evitando exibir instruções de preenchimento aos visitantes.
+
+   O exemplo acima reflete o arquivo `content.json` versionado neste
+   repositório. Ele não confirma, por si só, o que está publicado na org;
+   compare com o Experience Builder antes de assumir que estão iguais.
 
    O site reutiliza os componentes LWC em
    [`force-app/main/default/lwc`](../force-app/main/default/lwc), sem Apex ou
@@ -119,6 +123,31 @@ curl.exe --silent --show-error --location --output NUL --write-out "HTTP=%{http_
 Um redirecionamento para `/login` indica que o acesso anônimo ainda não está
 funcionando. Na publicação atual, a URL final retornou HTTP `200` sem login e a
 página inicial exibiu o `portfolioHome`.
+
+## Checklist para publicar conteúdo real
+
+Use este checklist somente com dados fornecidos e autorizados pelo proprietário
+do portfólio. Não preencha com exemplos ou dados presumidos.
+
+- [ ] Confirmar por escrito quais experiências, projetos e canais de contato
+      podem ser publicados.
+- [ ] Experiências: cada item tem `id` único e `role`, `organization`,
+      `period` e `description` não vazios.
+- [ ] Habilidades: cada grupo tem `id` único, `category` e uma lista `skills`
+      sem itens repetidos.
+- [ ] Projetos: cada item tem `id` único, `name`, `description` e
+      `technologies`; `repositoryUrl` e `demoUrl` são opcionais e, se
+      informados, começam com `https://`, têm domínio válido e não contêm
+      espaços.
+- [ ] Contato: e-mail em formato válido; LinkedIn e GitHub apenas com URLs
+      HTTPS válidas. Deixe vazio o canal que não deve ser exibido.
+- [ ] Validar o JSON antes de colar no Experience Builder e conferir que a
+      página não exibe o aviso "Não foi possível exibir".
+- [ ] Verificar no Builder: navegação por teclado, foco visível, links externos
+      em nova aba e layout em largura de celular.
+- [ ] Publicar somente após autorização explícita e verificar a URL pública
+      sem login (seção acima).
+- [ ] Atualizar este documento se a configuração publicada mudar.
 
 ## Segurança e manutenção
 

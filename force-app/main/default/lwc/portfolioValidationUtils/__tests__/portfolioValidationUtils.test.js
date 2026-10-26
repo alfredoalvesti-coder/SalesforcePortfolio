@@ -16,6 +16,7 @@ const VALID_PROJECT = {
 };
 // Built at runtime so the negative case does not trip the no-script-url rule.
 const SCRIPT_URL = ["javascript", "alert(1)"].join(":");
+const MAX_LABEL = "a".repeat(63);
 
 describe("c/portfolioValidationUtils", () => {
   describe("isHttpsUrl", () => {
@@ -26,7 +27,19 @@ describe("c/portfolioValidationUtils", () => {
       "https://example.com/path?query=1#section",
       "https://example.com:8443/path",
       "HTTPS://EXAMPLE.COM/path",
-      "https://www.example.com/in/perfil-teste"
+      "https://www.example.com/in/perfil-teste",
+      "https://my-site.example.com",
+      "https://a.b.c.example.co.uk/path",
+      "https://exemplo.com.br",
+      "https://example1.org",
+      "https://123.example.com",
+      "https://x.io",
+      `https://${MAX_LABEL}.com`,
+      "https://example.xn--p1ai",
+      "https://xn--mnchen-3ya.de",
+      "https://m\u00fcnchen.de/pfad",
+      "https://example.com/path/user@domain",
+      "https://example.com/?redirect=https://other.example.com"
     ])("accepts %s", (value) => {
       expect(isHttpsUrl(value)).toBe(true);
     });
@@ -53,6 +66,35 @@ describe("c/portfolioValidationUtils", () => {
       ["protocol-relative", "//example.com"],
       ["empty string", ""]
     ])("rejects %s", (_label, value) => {
+      expect(isHttpsUrl(value)).toBe(false);
+    });
+
+    it.each([
+      ["leading hyphen in label", "https://-example.com"],
+      ["trailing hyphen in label", "https://example-.com"],
+      ["leading hyphen in TLD", "https://example.-com"],
+      ["trailing hyphen in TLD", "https://example.com-"],
+      ["underscore", "https://exa_mple.com"],
+      ["exclamation mark", "https://exa!mple.com"],
+      ["wildcard label", "https://*.example.com"],
+      ["percent sign", "https://exa%mple.com"],
+      ["trailing dot", "https://example.com."],
+      ["encoded trailing dot", "https://example.com%2e"],
+      ["single-character TLD", "https://example.c"],
+      ["numeric TLD", "https://example.123"],
+      ["alphanumeric TLD", "https://example.c0m"],
+      ["label longer than 63 characters", `https://${MAX_LABEL}a.com`],
+      [
+        "hostname longer than 253 characters",
+        `https://${Array(4).fill(MAX_LABEL).join(".")}.com`
+      ],
+      ["IPv4 address", "https://192.168.0.1"],
+      ["hexadecimal IPv4 address", "https://0x7f.0.0.1"],
+      ["IPv6 address", "https://[::1]/path"],
+      ["invalid port", "https://example.com:99999"],
+      ["username before host", "https://example.com@other.example.org"],
+      ["username and password", "https://user:secret@example.com"]
+    ])("rejects malformed domain: %s", (_label, value) => {
       expect(isHttpsUrl(value)).toBe(false);
     });
 

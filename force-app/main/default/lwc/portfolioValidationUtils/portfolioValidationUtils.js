@@ -1,5 +1,9 @@
 const HTTPS_PREFIX_PATTERN = /^https:\/\//i;
 const WHITESPACE_PATTERN = /\s/;
+const MAX_HOSTNAME_LENGTH = 253;
+const HOSTNAME_LABEL_PATTERN = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
+// Alphabetic or punycode TLD; this also rules out IPv4 hosts.
+const TOP_LEVEL_DOMAIN_PATTERN = /^(?:[a-z]{2,63}|xn--[a-z0-9-]{1,59})$/;
 
 export function isNonEmptyString(value) {
   return typeof value === "string" && value.trim().length > 0;
@@ -9,13 +13,24 @@ function isObject(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function hasValidHostname(hostname) {
+// Expects the hostname already normalized by the URL parser (lowercase,
+// punycode for internationalized domains).
+function isValidDomainName(hostname) {
+  if (hostname.length > MAX_HOSTNAME_LENGTH) {
+    return false;
+  }
+
   const labels = hostname.split(".");
-  return labels.length > 1 && labels.every((label) => label.length > 0);
+  return (
+    labels.length > 1 &&
+    labels.every((label) => HOSTNAME_LABEL_PATTERN.test(label)) &&
+    TOP_LEVEL_DOMAIN_PATTERN.test(labels[labels.length - 1])
+  );
 }
 
 // The URL parser accepts shorthand such as "https:example.com", so the literal
-// prefix and whitespace are checked before parsing.
+// prefix and whitespace are checked before parsing. Credentials are rejected
+// because "https://trusted.com@other.com" points to other.com.
 export function isHttpsUrl(value) {
   if (
     typeof value !== "string" ||
@@ -27,7 +42,12 @@ export function isHttpsUrl(value) {
 
   try {
     const url = new URL(value);
-    return url.protocol === "https:" && hasValidHostname(url.hostname);
+    return (
+      url.protocol === "https:" &&
+      url.username === "" &&
+      url.password === "" &&
+      isValidDomainName(url.hostname)
+    );
   } catch {
     return false;
   }

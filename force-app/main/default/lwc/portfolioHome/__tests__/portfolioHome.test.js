@@ -239,7 +239,9 @@ describe("c-portfolio-home", () => {
     ["HTTP", "http://example.com/source"],
     ["missing hostname", "https://"],
     ["inner space", "https://exa mple.com"],
-    ["missing slashes", "https:example.com"]
+    ["missing slashes", "https:example.com"],
+    ["underscore in domain", "https://exa_mple.com/source"],
+    ["credentials before host", "https://example.com@other.example.org"]
   ])(
     "rejects projects with a malformed link (%s)",
     async (_label, repositoryUrl) => {

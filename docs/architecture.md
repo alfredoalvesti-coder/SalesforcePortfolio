@@ -91,7 +91,20 @@ shell inicial.
   espaços ou outros caracteres de espaço em branco;
 - `new URL()` consegue interpretá-la (erros são tratados com `try/catch`);
 - o protocolo resultante é `https:`;
-- o hostname tem ao menos dois rótulos não vazios separados por ponto.
+- a URL não contém usuário nem senha antes do host
+  (`https://confiavel.com@outro.com` aponta, na verdade, para `outro.com`);
+- o hostname, já normalizado pelo parser (minúsculas e punycode para domínios
+  internacionalizados), é um nome de domínio válido:
+  - tem até 253 caracteres e ao menos dois rótulos separados por ponto;
+  - cada rótulo tem de 1 a 63 caracteres, usa apenas letras, dígitos e hífen,
+    e não começa nem termina com hífen;
+  - o domínio de topo é alfabético com ao menos 2 letras ou punycode
+    (`xn--...`).
+
+Por consequência, são recusados endereços IP (IPv4, inclusive formas como
+`0x7f.0.0.1`, e IPv6), `localhost`, ponto final no hostname, sublinhado,
+curingas e outros caracteres fora do padrão de hostname. Domínios
+internacionalizados (por exemplo, `münchen.de`) continuam aceitos.
 
 Links de contato são aparados (`trim`) antes da validação. Links opcionais de
 projeto podem estar ausentes ou vazios; qualquer outro valor precisa ser uma

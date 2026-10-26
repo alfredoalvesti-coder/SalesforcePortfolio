@@ -55,7 +55,10 @@ describe('c-portfolio-contact', () => {
         ['inner space', 'https://exa mple.com/perfil'],
         ['missing slashes', 'https:example.com/perfil'],
         ['javascript scheme', ['javascript', 'alert(1)'].join(':')],
-        ['hostname without dot', 'https://localhost/perfil']
+        ['hostname without dot', 'https://localhost/perfil'],
+        ['credentials before host', 'https://example.com@other.example.org'],
+        ['leading hyphen in domain', 'https://-example.com/perfil'],
+        ['IPv4 address', 'https://192.168.0.1/perfil']
     ])('does not render malformed HTTPS links (%s)', (_label, url) => {
         const element = createElement('c-portfolio-contact', {
             is: PortfolioContact

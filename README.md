@@ -55,10 +55,12 @@ Os testes Jest dos componentes LWC ficam junto aos respectivos bundles em
    reais autorizados para publicação.
 5. Use somente links HTTPS para LinkedIn, GitHub e links de projetos. O
    componente de contato valida o formato do e-mail e aceita links externos
-   apenas com HTTPS. URLs precisam começar com `https://`, ter um hostname
-   válido (por exemplo, com domínio) e não conter espaços. Contatos vazios ou
+   apenas com HTTPS. URLs precisam começar com `https://`, ter um nome de
+   domínio válido (endereços IP, `localhost`, usuário/senha antes do host e
+   caracteres como `_` são recusados) e não conter espaços. Contatos vazios ou
    inválidos não são exibidos; projetos com links inválidos geram aviso de
-   configuração.
+   configuração. Regras completas em
+   [docs/architecture.md](./docs/architecture.md#validação-de-urls-externas).
 
 O metadata do `portfolioHome` declara os targets
 `lightningCommunity__Page` e `lightningCommunity__Default`. Os componentes de

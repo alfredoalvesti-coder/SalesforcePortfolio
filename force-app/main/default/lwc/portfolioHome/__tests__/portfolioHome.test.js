@@ -166,4 +166,146 @@ describe("c-portfolio-home", () => {
       element.shadowRoot.querySelector("c-portfolio-experience")
     ).toBeNull();
   });
+
+  function getNavigationTargets(element) {
+    return [...element.shadowRoot.querySelectorAll(".section-nav a")].map(
+      (link) => link.getAttribute("href").slice(1).replace(/-\d+$/, "")
+    );
+  }
+
+  it("hides sections and anchors for empty lists without warnings", async () => {
+    const element = createElement("c-portfolio-home", {
+      is: PortfolioHome
+    });
+    element.experienceItemsJson = "[]";
+    element.projectsJson = "  ";
+    element.skillGroupsJson = JSON.stringify([
+      { id: "empty", category: "Categoria vazia", skills: [] }
+    ]);
+
+    document.body.appendChild(element);
+    await Promise.resolve();
+
+    expect(element.shadowRoot.querySelector('[role="alert"]')).toBeNull();
+    expect(
+      element.shadowRoot.querySelector("c-portfolio-experience")
+    ).toBeNull();
+    expect(element.shadowRoot.querySelector("c-portfolio-skills")).toBeNull();
+    expect(element.shadowRoot.querySelector("c-portfolio-projects")).toBeNull();
+    expect(getNavigationTargets(element)).toEqual(["about"]);
+  });
+
+  it("rejects duplicate identifiers and keeps the section hidden", async () => {
+    const element = createElement("c-portfolio-home", {
+      is: PortfolioHome
+    });
+    const item = {
+      id: "duplicated",
+      role: "Função de teste",
+      organization: "Organização de teste",
+      period: "Período de teste",
+      description: "Descrição de teste"
+    };
+    element.experienceItemsJson = JSON.stringify([item, { ...item }]);
+
+    document.body.appendChild(element);
+    await Promise.resolve();
+
+    expect(
+      element.shadowRoot.querySelector('[role="alert"]').textContent
+    ).toContain("Experiências: revise a estrutura e os identificadores");
+    expect(
+      element.shadowRoot.querySelector("c-portfolio-experience")
+    ).toBeNull();
+    expect(getNavigationTargets(element)).not.toContain("experience");
+  });
+
+  it("reports unexpected setting types", async () => {
+    const element = createElement("c-portfolio-home", {
+      is: PortfolioHome
+    });
+    element.skillGroupsJson = 42;
+
+    document.body.appendChild(element);
+    await Promise.resolve();
+
+    expect(
+      element.shadowRoot.querySelector('[role="alert"]').textContent
+    ).toContain("Habilidades: informe uma lista JSON.");
+    expect(element.shadowRoot.querySelector("c-portfolio-skills")).toBeNull();
+  });
+
+  it.each([
+    ["HTTP", "http://example.com/source"],
+    ["missing hostname", "https://"],
+    ["inner space", "https://exa mple.com"],
+    ["missing slashes", "https:example.com"]
+  ])(
+    "rejects projects with a malformed link (%s)",
+    async (_label, repositoryUrl) => {
+      const element = createElement("c-portfolio-home", {
+        is: PortfolioHome
+      });
+      element.projectsJson = JSON.stringify([
+        {
+          id: "project-1",
+          name: "Projeto de teste",
+          description: "Descrição de teste",
+          technologies: ["Tecnologia de teste"],
+          repositoryUrl
+        }
+      ]);
+
+      document.body.appendChild(element);
+      await Promise.resolve();
+
+      expect(
+        element.shadowRoot.querySelector('[role="alert"]').textContent
+      ).toContain("Projetos: revise a estrutura e os identificadores");
+      expect(
+        element.shadowRoot.querySelector("c-portfolio-projects")
+      ).toBeNull();
+      expect(getNavigationTargets(element)).not.toContain("projects");
+    }
+  );
+
+  it("renders projects with optional links omitted or empty", async () => {
+    const element = createElement("c-portfolio-home", {
+      is: PortfolioHome
+    });
+    element.projectsJson = JSON.stringify([
+      {
+        id: "project-1",
+        name: "Projeto de teste",
+        description: "Descrição de teste",
+        technologies: ["Tecnologia de teste"],
+        demoUrl: ""
+      }
+    ]);
+
+    document.body.appendChild(element);
+    await Promise.resolve();
+
+    expect(element.shadowRoot.querySelector('[role="alert"]')).toBeNull();
+    expect(
+      element.shadowRoot.querySelector("c-portfolio-projects")
+    ).not.toBeNull();
+    expect(getNavigationTargets(element)).toContain("projects");
+  });
+
+  it("warns about malformed contact links and hides the contact section", async () => {
+    const element = createElement("c-portfolio-home", {
+      is: PortfolioHome
+    });
+    element.linkedinUrl = "https:/example.com/perfil";
+
+    document.body.appendChild(element);
+    await Promise.resolve();
+
+    expect(
+      element.shadowRoot.querySelector('[role="alert"]').textContent
+    ).toContain("canais de contato");
+    expect(element.shadowRoot.querySelector("c-portfolio-contact")).toBeNull();
+    expect(getNavigationTargets(element)).not.toContain("contact");
+  });
 });

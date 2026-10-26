@@ -16,6 +16,8 @@ usuário e podem ser configuradas no Experience Builder.
   estrutura visual reutilizável.
 - `portfolioExperience`, `portfolioSkills`, `portfolioProjects` e
   `portfolioContact`: seções independentes, compostas pela página principal.
+- `portfolioValidationUtils` e `portfolioContactUtils`: módulos internos de
+  validação (URLs HTTPS, configurações JSON e contatos).
 - CSS isolado por componente, tema escuro com detalhes azuis e layout adaptável.
 - Sem Apex ou serviço externo: o conteúdo é estático e as formas de contato são
   links configurados no Builder.
@@ -53,7 +55,10 @@ Os testes Jest dos componentes LWC ficam junto aos respectivos bundles em
    reais autorizados para publicação.
 5. Use somente links HTTPS para LinkedIn, GitHub e links de projetos. O
    componente de contato valida o formato do e-mail e aceita links externos
-   apenas com HTTPS. Contatos vazios ou inválidos não são exibidos.
+   apenas com HTTPS. URLs precisam começar com `https://`, ter um hostname
+   válido (por exemplo, com domínio) e não conter espaços. Contatos vazios ou
+   inválidos não são exibidos; projetos com links inválidos geram aviso de
+   configuração.
 
 O metadata do `portfolioHome` declara os targets
 `lightningCommunity__Page` e `lightningCommunity__Default`. Os componentes de

@@ -1,36 +1,28 @@
-import { LightningElement, api } from 'lwc';
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const HTTPS_URL_PATTERN = /^https:\/\/[^\s]+$/i;
+import { LightningElement, api } from "lwc";
+import { getContactLinks } from "c/portfolioContactUtils";
 
 export default class PortfolioContact extends LightningElement {
-    @api email = '';
-    @api linkedinUrl = '';
-    @api githubUrl = '';
+  @api email = "";
+  @api linkedinUrl = "";
+  @api githubUrl = "";
 
-    get emailHref() {
-        const email = this.normalize(this.email);
-        return EMAIL_PATTERN.test(email) ? `mailto:${email}` : '';
-    }
+  get contactLinks() {
+    return getContactLinks(this.email, this.linkedinUrl, this.githubUrl);
+  }
 
-    get linkedinHref() {
-        return this.getHttpsUrl(this.linkedinUrl);
-    }
+  get emailHref() {
+    return this.contactLinks.emailHref;
+  }
 
-    get githubHref() {
-        return this.getHttpsUrl(this.githubUrl);
-    }
+  get linkedinHref() {
+    return this.contactLinks.linkedinHref;
+  }
 
-    get hasContactLink() {
-        return Boolean(this.emailHref || this.linkedinHref || this.githubHref);
-    }
+  get githubHref() {
+    return this.contactLinks.githubHref;
+  }
 
-    getHttpsUrl(value) {
-        const url = this.normalize(value);
-        return HTTPS_URL_PATTERN.test(url) ? url : '';
-    }
-
-    normalize(value) {
-        return typeof value === 'string' ? value.trim() : '';
-    }
+  get hasContactLink() {
+    return this.contactLinks.hasContactLink;
+  }
 }

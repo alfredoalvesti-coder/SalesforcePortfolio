@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>68.0</apiVersion>
     <isExposed>true</isExposed>
@@ -13,32 +13,52 @@
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
             <property
-                name="pageTitle"
-                type="String"
-                label="Título principal"
-                default="Portfólio Salesforce"
-            />
+        name="pageTitle"
+        type="String"
+        label="Título principal"
+        default="Desenvolvedor Salesforce Sênior"
+      />
             <property
-                name="introduction"
-                type="String"
-                label="Resumo de apresentação"
-                default="Experiência, habilidades e projetos em Salesforce."
-            />
+        name="introduction"
+        type="String"
+        label="Resumo de apresentação"
+        default="Salesforce, Java, Spring Boot, integrações e arquitetura de software."
+      />
             <property
-                name="contactEmail"
-                type="String"
-                label="E-mail de contato"
-            />
+        name="aboutText"
+        type="String"
+        label="Sobre"
+        default="Desenvolvedor Salesforce Sênior com conhecimentos em Java, Spring Boot, integrações e arquitetura de software."
+      />
             <property
-                name="linkedinUrl"
-                type="String"
-                label="URL do LinkedIn"
-            />
+        name="experienceItemsJson"
+        type="String"
+        label="Experiências profissionais (JSON)"
+        default="[]"
+      />
             <property
-                name="githubUrl"
-                type="String"
-                label="URL do GitHub"
-            />
+        name="skillGroupsJson"
+        type="String"
+        label="Habilidades por categoria (JSON)"
+        default="[{&quot;id&quot;:&quot;salesforce&quot;,&quot;category&quot;:&quot;Salesforce&quot;,&quot;skills&quot;:[&quot;Salesforce DX&quot;,&quot;Lightning Web Components (LWC)&quot;,&quot;Experience Cloud&quot;]},{&quot;id&quot;:&quot;backend&quot;,&quot;category&quot;:&quot;Desenvolvimento back-end&quot;,&quot;skills&quot;:[&quot;Java&quot;,&quot;Spring Boot&quot;]},{&quot;id&quot;:&quot;integration-architecture&quot;,&quot;category&quot;:&quot;Integrações e arquitetura&quot;,&quot;skills&quot;:[&quot;Integrações&quot;,&quot;Arquitetura de software&quot;]}]"
+      />
+            <property
+        name="projectsJson"
+        type="String"
+        label="Projetos (JSON)"
+        default="[]"
+      />
+            <property
+        name="contactEmail"
+        type="String"
+        label="E-mail de contato"
+      />
+            <property
+        name="linkedinUrl"
+        type="String"
+        label="URL do LinkedIn"
+      />
+            <property name="githubUrl" type="String" label="URL do GitHub" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

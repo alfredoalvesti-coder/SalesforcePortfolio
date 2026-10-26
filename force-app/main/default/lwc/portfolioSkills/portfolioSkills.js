@@ -1,9 +1,19 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api } from "lwc";
 
 export default class PortfolioSkills extends LightningElement {
-    @api skills = [];
+  @api groups = [];
 
-    get hasSkills() {
-        return Array.isArray(this.skills) && this.skills.length > 0;
+  get visibleGroups() {
+    if (!Array.isArray(this.groups)) {
+      return [];
     }
+
+    return this.groups.filter(
+      (group) => Array.isArray(group.skills) && group.skills.length > 0
+    );
+  }
+
+  get hasGroups() {
+    return this.visibleGroups.length > 0;
+  }
 }

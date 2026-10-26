@@ -4,16 +4,16 @@ Projeto Salesforce DX para um portfólio profissional em Lightning Web Component
 (LWC), preparado para ser adicionado a uma página do Experience Cloud pelo
 Experience Builder.
 
-O conteúdo pessoal não é presumido neste projeto. As listas de experiência,
-habilidades e projetos começam vazias; preencha-as somente com informações reais
-que você queira publicar.
+O conteúdo profissional não é inventado neste projeto. Experiências e projetos
+começam vazios; as habilidades padrão refletem apenas os domínios informados pelo
+usuário e podem ser configuradas no Experience Builder.
 
 ## Arquitetura
 
 - `portfolioHome`: composição da página e único componente exposto ao Experience
   Builder.
-- `portfolioHeader`, `portfolioHero` e `portfolioFooter`: estrutura visual
-  reutilizável.
+- `portfolioHeader`, `portfolioHero`, `portfolioAbout` e `portfolioFooter`:
+  estrutura visual reutilizável.
 - `portfolioExperience`, `portfolioSkills`, `portfolioProjects` e
   `portfolioContact`: seções independentes, compostas pela página principal.
 - CSS isolado por componente, tema escuro com detalhes azuis e layout adaptável.
@@ -47,20 +47,28 @@ Os testes Jest dos componentes LWC ficam junto aos respectivos bundles em
 2. Adicione o componente **Portfolio Home** à página.
 3. Configure o título, o resumo e, se desejar, e-mail, LinkedIn e GitHub nas
    propriedades do componente.
-4. Para exibir experiência, habilidades e projetos, edite as coleções vazias
-   `EXPERIENCE_ITEMS`, `SKILLS` e `PROJECTS` em
-   `force-app/main/default/lwc/portfolioHome/portfolioHome.js`.
+4. Configure `Experiências (JSON)`, `Habilidades por categoria (JSON)` e
+   `Projetos (JSON)` nas propriedades do `Portfolio Home`. Experiências e
+   projetos vazios não aparecem no site público; preencha-os somente com dados
+   reais autorizados para publicação.
 5. Use somente links HTTPS para LinkedIn, GitHub e links de projetos. O
    componente de contato valida o formato do e-mail e aceita links externos
-   apenas com HTTPS.
+   apenas com HTTPS. Contatos vazios ou inválidos não são exibidos.
 
 O metadata do `portfolioHome` declara os targets
 `lightningCommunity__Page` e `lightningCommunity__Default`. Os componentes de
 seção são internos e são compostos pela página principal.
 
+## Site público
+
+O site público do portfólio é o `PortfolioPublic`, separado do site autenticado
+`Portfolio`. A criação LWR, o acesso de visitantes, os comandos de deploy e as
+verificações estão documentados em
+[docs/public-site.md](./docs/public-site.md).
+
 ## Modelo do conteúdo
 
-Cada item em `EXPERIENCE_ITEMS` tem a forma:
+Cada item em `Experiências (JSON)` tem a forma:
 
 ```js
 {
@@ -72,7 +80,19 @@ Cada item em `EXPERIENCE_ITEMS` tem a forma:
 }
 ```
 
-`SKILLS` é uma lista de strings. Cada item em `PROJECTS` tem a forma:
+`Habilidades por categoria (JSON)` agrupa termos informados pelo usuário:
+
+```json
+[
+  {
+    "id": "backend",
+    "category": "Desenvolvimento back-end",
+    "skills": ["Java", "Spring Boot"]
+  }
+]
+```
+
+Cada item em `Projetos (JSON)` tem a forma:
 
 ```js
 {
@@ -86,7 +106,7 @@ Cada item em `EXPERIENCE_ITEMS` tem a forma:
 ```
 
 Os endereços `example.com` acima são apenas exemplos de formato, não projetos
-reais. Remova ou substitua esses valores antes de publicar.
+reais. Não os cadastre como projetos no site público.
 
 ## Deploy
 

@@ -1,18 +1,25 @@
 <template>
-    <section class="content-section" aria-labelledby="skills-title">
-        <p class="eyebrow">Conhecimentos</p>
-        <h2 id="skills-title">Habilidades</h2>
-        <template lwc:if={hasSkills}>
+  <section class="content-section" aria-labelledby="skills-title">
+    <p class="eyebrow">Conhecimentos</p>
+    <h2 id="skills-title">Habilidades</h2>
+    <template lwc:if={hasGroups}>
+      <div class="skill-groups">
+        <template for:each={visibleGroups} for:item="group">
+          <article class="skill-group" key={group.id}>
+            <h3>{group.category}</h3>
             <ul class="skill-list">
-                <template for:each={skills} for:item="skill">
-                    <li class="skill-item" key={skill}>{skill}</li>
-                </template>
+              <template for:each={group.skills} for:item="skill">
+                <li class="skill-item" key={skill}>{skill}</li>
+              </template>
             </ul>
+          </article>
         </template>
-        <template lwc:else>
-            <p class="empty-state">
-                Inclua habilidades que você possa demonstrar na prática.
-            </p>
-        </template>
-    </section>
+      </div>
+    </template>
+    <template lwc:else>
+      <p class="empty-state">
+        Inclua habilidades que você possa demonstrar na prática.
+      </p>
+    </template>
+  </section>
 </template>

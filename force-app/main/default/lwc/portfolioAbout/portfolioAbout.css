@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.about-card {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid var(--portfolio-border, rgb(169 185 206 / 18%));
+  border-left: 0.25rem solid var(--portfolio-blue, #58a6ff);
+  border-radius: 1rem;
+  background: var(--portfolio-surface, #0e1b2b);
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--portfolio-blue, #58a6ff);
+  font-size: 0.8125rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0;
+  color: var(--portfolio-text, #edf4ff);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.description {
+  max-width: 55rem;
+  margin: 1rem 0 0;
+  color: var(--portfolio-muted, #a9b9ce);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}

@@ -11,6 +11,7 @@ simples de configuração da página e passa os dados às seções filhas.
 portfolioHome
 ├── portfolioHeader
 ├── portfolioHero
+├── portfolioAbout
 ├── portfolioExperience
 ├── portfolioSkills
 ├── portfolioProjects
@@ -24,16 +25,17 @@ isolada em `portfolioContact`.
 
 ## Componentes
 
-| Bundle | Responsabilidade |
-| --- | --- |
-| `portfolioHome` | Compor a página, expor propriedades ao Experience Builder e fornecer conteúdo às seções. |
-| `portfolioHeader` | Exibir a identificação configurada do portfólio. |
-| `portfolioHero` | Apresentar o título e o resumo configurados. |
-| `portfolioExperience` | Renderizar itens de experiência ou um estado vazio. |
-| `portfolioSkills` | Renderizar habilidades ou um estado vazio. |
-| `portfolioProjects` | Renderizar projetos, tecnologias e links opcionais. |
-| `portfolioContact` | Validar e exibir canais de contato configurados. |
-| `portfolioFooter` | Exibir o rodapé do portfólio. |
+| Bundle                | Responsabilidade                                                                         |
+| --------------------- | ---------------------------------------------------------------------------------------- |
+| `portfolioHome`       | Compor a página, expor propriedades ao Experience Builder e fornecer conteúdo às seções. |
+| `portfolioHeader`     | Exibir a identificação configurada do portfólio.                                         |
+| `portfolioHero`       | Apresentar o título e o resumo configurados.                                             |
+| `portfolioAbout`      | Apresentar o resumo profissional configurado.                                            |
+| `portfolioExperience` | Renderizar itens de experiência ou um estado vazio.                                      |
+| `portfolioSkills`     | Renderizar habilidades ou um estado vazio.                                               |
+| `portfolioProjects`   | Renderizar projetos, tecnologias e links opcionais.                                      |
+| `portfolioContact`    | Validar e exibir canais de contato configurados.                                         |
+| `portfolioFooter`     | Exibir o rodapé do portfólio.                                                            |
 
 Os componentes filhos são internos (`isExposed=false`); a página principal é
 adicionada ao Builder. Isso evita manter várias configurações independentes de
@@ -41,10 +43,21 @@ conteúdo para a mesma página.
 
 ## Conteúdo e configuração
 
-`portfolioHome.js` é a fonte das coleções `EXPERIENCE_ITEMS`, `SKILLS` e
-`PROJECTS`. No estado inicial essas coleções estão vazias intencionalmente. O
-Experience Builder configura `pageTitle`, `introduction`, `contactEmail`,
-`linkedinUrl` e `githubUrl` pelo metadata do `portfolioHome`.
+`portfolioHome` orquestra a página e recebe o conteúdo estruturado nas
+propriedades JSON do Experience Builder:
+
+- `experienceItemsJson`: itens com `id`, `role`, `organization`, `period` e
+  `description`.
+- `skillGroupsJson`: grupos com `id`, `category` e uma lista `skills`.
+- `projectsJson`: itens com `id`, `name`, `description`, `technologies` e URLs
+  opcionais HTTPS.
+
+Também são configuráveis `pageTitle`, `introduction`, `aboutText`,
+`contactEmail`, `linkedinUrl` e `githubUrl`. Experiências e projetos começam
+vazios e suas seções e âncoras são omitidas até haver conteúdo válido. Contato
+vazio ou inválido não é exibido; entradas JSON inválidas geram um aviso de
+configuração em vez de falharem silenciosamente. Os grupos de habilidades
+padrão refletem somente as áreas informadas pelo usuário.
 
 Não há Apex, chamadas de rede ou persistência. Para este portfólio estático, os
 componentes recebem os dados por propriedades públicas (`@api`). Se o escopo
@@ -75,8 +88,15 @@ shell inicial.
 ## Metadados Experience Cloud
 
 O metadata de `portfolioHome` declara `lightningCommunity__Page` e
-`lightningCommunity__Default`, com propriedades do Builder para título, resumo e
-canais de contato. Os metadados de um site Experience Cloud (por exemplo,
-ExperienceBundle e configuração de publicação) não fazem parte do escopo atual.
-Adicionar o LWC ao Builder e publicar o site são operações distintas; deploy ou
-publicação exigem autorização explícita.
+`lightningCommunity__Default`, com propriedades do Builder para título,
+apresentação, dados JSON e canais de contato. O site público `PortfolioPublic` usa um
+`DigitalExperienceBundle` em
+`force-app/main/default/digitalExperiences/site/PortfolioPublic1` e a página
+inicial compõe o LWC `c:portfolioHome`. O site autenticado `Portfolio` é
+independente e não foi convertido.
+
+O tipo de autenticação e a publicação do Experience Cloud são configurações
+separadas do bundle LWC. O site público foi criado como LWR com
+`AUTHENTICATED_WITH_PUBLIC_ACCESS_ENABLED`; veja
+[public-site.md](./public-site.md) para os comandos, ativação do Network e
+verificação de acesso anônimo.

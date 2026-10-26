@@ -146,6 +146,13 @@ describe("c-portfolio-home", () => {
       "skills"
     ]);
     expect(anchorTargets.sort()).toEqual(sectionIds.sort());
+    navigationLinks.forEach((link) => {
+      const target = element.shadowRoot.querySelector(
+        `[id="${link.getAttribute("href").slice(1)}"]`
+      );
+      expect(target).not.toBeNull();
+      expect(target.classList.contains("portfolio-section")).toBe(true);
+    });
   });
 
   it("surfaces invalid JSON instead of silently showing an empty section", async () => {

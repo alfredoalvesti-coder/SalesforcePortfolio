@@ -81,6 +81,12 @@ shell inicial.
   (`community_byo:scopedHeaderAndFooter`). Por isso `portfolioHome` usa um
   `div` como área de conteúdo, evitando `main` aninhado, e não renderiza link
   próprio de pular conteúdo.
+- O `div#portfolio-content` deve continuar com `id` fora de `lwc:if`: o
+  compilador LWC só aplica aos `href="#..."` da navegação o mesmo sufixo dos
+  ids das seções (por exemplo, `#about-23`) quando o template tem algum `id`
+  renderizado sem condição. Sem ele, as âncoras deixam de levar às seções. O
+  teste de `portfolioHome` verifica que cada link aponta para uma seção
+  existente.
 - Grid, flexbox, medidas fluidas e breakpoints adaptam as seções a telas menores.
 - O shell inclui fallback `100vh` e `100svh` para a altura dinâmica de viewport.
 - Links de contato aceitam e-mail em formato simples válido. Links externos

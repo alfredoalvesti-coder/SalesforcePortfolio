@@ -2,7 +2,8 @@
   <div class="portfolio-shell">
     <c-portfolio-header brand-label={displayPageTitle}></c-portfolio-header>
     <!-- O template LWR já fornece o landmark main e o link "Skip to Main"; um div evita main aninhado. -->
-    <div class="main-content">
+    <!-- O id fora de lwc:if faz o compilador LWC aplicar aos href="#..." o mesmo sufixo dos ids das seções. -->
+    <div id="portfolio-content" class="main-content">
       <c-portfolio-hero
         heading={displayPageTitle}
         summary={displayIntroduction}

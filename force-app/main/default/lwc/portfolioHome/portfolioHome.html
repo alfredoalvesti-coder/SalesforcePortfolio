@@ -1,11 +1,8 @@
 <template>
   <div class="portfolio-shell">
-    <a class="skip-link" href="#portfolio-content"
-      >Pular para o conteúdo principal</a
-    >
     <c-portfolio-header brand-label={displayPageTitle}></c-portfolio-header>
-    <!-- O template LWR já fornece o landmark main; um div evita main aninhado. -->
-    <div id="portfolio-content" class="main-content" tabindex="-1">
+    <!-- O template LWR já fornece o landmark main e o link "Skip to Main"; um div evita main aninhado. -->
+    <div class="main-content">
       <c-portfolio-hero
         heading={displayPageTitle}
         summary={displayIntroduction}

@@ -16,12 +16,9 @@ describe("c-portfolio-home", () => {
     document.body.appendChild(element);
 
     const content = element.shadowRoot.querySelector(".main-content");
-    const skipLinks = element.shadowRoot.querySelectorAll("a.skip-link");
     expect(element.shadowRoot.querySelector("main")).toBeNull();
     expect(content.tagName).toBe("DIV");
-    expect(content.getAttribute("tabindex")).toBe("-1");
-    expect(skipLinks).toHaveLength(1);
-    expect(skipLinks[0].getAttribute("href")).toBe(`#${content.id}`);
+    expect(element.shadowRoot.querySelector("a.skip-link")).toBeNull();
     expect(
       element.shadowRoot.querySelectorAll("section.portfolio-section")
     ).toHaveLength(2);

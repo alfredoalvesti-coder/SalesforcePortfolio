@@ -75,16 +75,12 @@ shell inicial.
 
 - CSS é encapsulado por bundle; o shell define propriedades CSS de tema que os
   componentes filhos reutilizam.
-- A estrutura usa headings semânticos, link para pular ao conteúdo,
-  navegação entre seções e estilos de foco visíveis.
-- O landmark `main` vem do layout do template LWR
+- A estrutura usa headings semânticos, navegação entre seções e estilos de foco
+  visíveis.
+- O landmark `main` e o link "Skip to Main" vêm do layout do template LWR
   (`community_byo:scopedHeaderAndFooter`). Por isso `portfolioHome` usa um
-  `div` (`#portfolio-content`) como área de conteúdo, evitando `main` aninhado.
-- O link "Pular para o conteúdo principal" do `portfolioHome` (em pt-BR) é o
-  único da página: o `headMarkup` do site
-  (`sfdc_cms__appPage/mainAppPage/content.json`) oculta o link "Skip to Main"
-  do template com `a.skip-to-main { display: none; }`. Se o `portfolioHome`
-  deixar de ser usado na página, remova essa regra.
+  `div` como área de conteúdo, evitando `main` aninhado, e não renderiza link
+  próprio de pular conteúdo.
 - Grid, flexbox, medidas fluidas e breakpoints adaptam as seções a telas menores.
 - O shell inclui fallback `100vh` e `100svh` para a altura dinâmica de viewport.
 - Links de contato aceitam e-mail em formato simples válido. Links externos
